@@ -21,6 +21,7 @@ const authenticate = (req, res, next) => {
     const payload = verifyToken(token, "JWT_SECRET");
 
     req.user = payload;
+    // console.log(req.user, "req.user");
 
     next();
   } catch (e) {

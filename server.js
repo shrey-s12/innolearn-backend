@@ -9,6 +9,7 @@ const studentViewCourseRoutes = require("./routes/student-routes/course-routes")
 const studentViewOrderRoutes = require("./routes/student-routes/order-routes");
 const studentCoursesRoutes = require("./routes/student-routes/student-courses-routes");
 const studentCourseProgressRoutes = require("./routes/student-routes/course-progress-routes");
+const createInstructorRoutes = require("./routes/admin-routes/CreateInstructorRoutes");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -20,8 +21,6 @@ app.use(cors({
   methods: ["GET", "POST", "DELETE", "PUT", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
 }));
-
-
 
 app.use(express.json());
 
@@ -39,6 +38,7 @@ app.use("/student/course", studentViewCourseRoutes);
 app.use("/student/order", studentViewOrderRoutes);
 app.use("/student/courses-bought", studentCoursesRoutes);
 app.use("/student/course-progress", studentCourseProgressRoutes);
+app.use("/admin/instructors", createInstructorRoutes);
 
 app.use((err, req, res, next) => {
   console.log(err.stack);
