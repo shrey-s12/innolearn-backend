@@ -44,36 +44,71 @@ const createInstructor = async (req, res) => {
 // Get all instructors
 const getAllInstructors = async (req, res) => {
     try {
-        const instructors = await Instructor.find();
-        res.status(200).json(instructors);
-    } catch (error) {
-        res.status(400).json({ message: "Error fetching instructors", error });
+        const instructorsList = await Instructor.find({});
+        res.status(200).json({
+            success: true,
+            data: instructorsList,
+        });
+    } catch (e) {
+        console.log(e);
+        res.status(500).json({
+            success: false,
+            message: "Some error occured while fetching instructors",
+        });
     }
 };
 
 // Get an instructor by ID
 const getInstructorById = async (req, res) => {
     try {
-        const instructor = await Instructor.findById(req.params.id);
-        if (!instructor) {
-            return res.status(404).json({ message: "Instructor not found" });
+        const { id } = req.params;
+        const instructorDetails = await Instructor.findById(id);
+        if (!instructorDetails) {
+            return res.status(404).json({
+                success: false,
+                message: "Instructor not found!",
+            });
         }
-        res.status(200).json(instructor);
-    } catch (error) {
-        res.status(400).json({ message: "Error fetching instructor", error });
+        res.status(200).json({
+            success: true,
+            data: instructorDetails,
+        });
+    } catch (e) {
+        console.log(e);
+        res.status(500).json({
+            success: false,
+            message: "Some error occured!",
+        });
     }
 };
 
 // Update an instructor
 const updateInstructor = async (req, res) => {
     try {
-        const updatedInstructor = await Instructor.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        const { id } = req.params;
+        const updatedInstructorDetails = req.body;
+        const updatedInstructor = await Instructor.findByIdAndUpdate(
+            id,
+            updatedInstructorDetails,
+            { new: true });
+
         if (!updatedInstructor) {
-            return res.status(404).json({ message: "Instructor not found" });
+            return res.status(404).json({
+                success: false,
+                message: "Instructor not found",
+            });
         }
-        res.status(200).json({ message: "Instructor updated successfully", instructor: updatedInstructor });
-    } catch (error) {
-        res.status(400).json({ message: "Error updating instructor", error });
+        res.status(200).json({
+            success: true,
+            message: "Course updated successfully",
+            data: updatedCourse,
+        });
+    } catch (e) {
+        console.log(e);
+        res.status(500).json({
+            success: false,
+            message: "Some error occured!",
+        });
     }
 };
 
