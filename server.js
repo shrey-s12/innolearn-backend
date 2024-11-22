@@ -10,17 +10,20 @@ const studentViewOrderRoutes = require("./routes/student-routes/order-routes");
 const studentCoursesRoutes = require("./routes/student-routes/student-courses-routes");
 const studentCourseProgressRoutes = require("./routes/student-routes/course-progress-routes");
 const createInstructorRoutes = require("./routes/admin-routes/CreateInstructorRoutes");
+const studentRoutes = require("./routes/student-routes/students-routes");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 const MONGO_URI = process.env.MONGO_URI;
 
 app.options("*", cors()); // Allow preflight requests for all routes
-app.use(cors({
-  origin: "*", // Allow all origins for troubleshooting (not recommended for production)
-  methods: ["GET", "POST", "DELETE", "PUT", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-}));
+app.use(
+  cors({
+    origin: "*", // Allow all origins for troubleshooting (not recommended for production)
+    methods: ["GET", "POST", "DELETE", "PUT", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 
 app.use(express.json());
 
@@ -39,6 +42,7 @@ app.use("/student/order", studentViewOrderRoutes);
 app.use("/student/courses-bought", studentCoursesRoutes);
 app.use("/student/course-progress", studentCourseProgressRoutes);
 app.use("/admin/instructors", createInstructorRoutes);
+app.use("/admin/students", studentRoutes);
 
 app.use((err, req, res, next) => {
   console.log(err.stack);

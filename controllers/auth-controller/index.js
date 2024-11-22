@@ -4,7 +4,21 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const registerUser = async (req, res) => {
-  const { userName, userEmail, password, role } = req.body;
+  const {
+    userFullName,
+    userName,
+    userEmail,
+    password,
+    confirmPassword,
+    role,
+    userPhoneNumber,
+    userDateOfBirth,
+    userGender,
+    userInterests,
+    userAddress,
+  } = req.body;
+
+  const { country, state, city, street } = userAddress;
 
   const existingUser = await User.findOne({
     $or: [{ userEmail }, { userName }],
@@ -17,12 +31,38 @@ const registerUser = async (req, res) => {
     });
   }
 
+  if (userFullName === userName) {
+    return res.status(400).json({
+      success: false,
+      message: "User name and user full name cannot be the same",
+    });
+  }
+
+  if (password !== confirmPassword) {
+    return res.status(400).json({
+      success: false,
+      message: "Passwords do not match",
+    });
+  }
+
   const hashPassword = await bcrypt.hash(password, 10);
   const newUser = new User({
+    userFullName,
     userName,
     userEmail,
     role,
     password: hashPassword,
+    confirmPassword: hashPassword,
+    userPhoneNumber,
+    userDateOfBirth,
+    userGender,
+    userInterests,
+    userAddress: {
+      country,
+      state,
+      city,
+      street,
+    },
   });
 
   await newUser.save();
@@ -69,7 +109,9 @@ const loginUser = async (req, res) => {
       });
     }
 
-    const checkInstructor = await Instructor.findOne({ instructorEmail: userEmail });
+    const checkInstructor = await Instructor.findOne({
+      instructorEmail: userEmail,
+    });
     console.log("Instructor Found:", checkInstructor); // Log instructor result
     if (
       checkInstructor &&
@@ -115,7 +157,5 @@ const loginUser = async (req, res) => {
     });
   }
 };
-
-
 
 module.exports = { registerUser, loginUser };
