@@ -5,6 +5,7 @@ const LectureSchema = new mongoose.Schema({
   videoUrl: String,
   hindiSubtitleVideoUrl: String,
   englishSubtitleVideoUrl: String,
+  tamilSubtitleVideoUrl: String,
   public_id: String,
   freePreview: Boolean,
 });
