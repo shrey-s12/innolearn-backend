@@ -3,6 +3,8 @@ const mongoose = require("mongoose");
 const LectureSchema = new mongoose.Schema({
   title: String,
   videoUrl: String,
+  hindiSubtitleVideoUrl: String,
+  englishSubtitleVideoUrl: String,
   public_id: String,
   freePreview: Boolean,
 });
