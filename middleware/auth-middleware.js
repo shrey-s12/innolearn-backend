@@ -6,7 +6,6 @@ const verifyToken = (token, secretKey) => {
 
 const authenticate = (req, res, next) => {
   const authHeader = req.headers.authorization;
-  console.log(authHeader, "authHeader");
 
   if (!authHeader) {
     return res.status(401).json({
@@ -21,7 +20,6 @@ const authenticate = (req, res, next) => {
     const payload = verifyToken(token, "JWT_SECRET");
 
     req.user = payload;
-    // console.log(req.user, "req.user");
 
     next();
   } catch (e) {

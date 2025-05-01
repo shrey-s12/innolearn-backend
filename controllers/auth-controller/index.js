@@ -75,13 +75,10 @@ const registerUser = async (req, res) => {
 
 const loginUser = async (req, res) => {
   const { userEmail, password } = req.body;
-  console.log("Login Attempt:", { userEmail, password }); // Log request body
 
   try {
     const checkUser = await User.findOne({ userEmail: userEmail });
-    console.log("User Found:", checkUser); // Log user result
     if (checkUser && (await bcrypt.compare(password, checkUser.password))) {
-      console.log("User Authenticated"); // Log successful authentication
       // Generate and return token...
       const accessToken = jwt.sign(
         {
@@ -112,12 +109,10 @@ const loginUser = async (req, res) => {
     const checkInstructor = await Instructor.findOne({
       instructorEmail: userEmail,
     });
-    console.log("Instructor Found:", checkInstructor); // Log instructor result
     if (
       checkInstructor &&
       (await bcrypt.compare(password, checkInstructor.instructorPassword))
     ) {
-      console.log("Instructor Authenticated"); // Log successful authentication
       // Generate and return token...
       const instructorAccessToken = jwt.sign(
         {
