@@ -11,7 +11,7 @@ const studentCoursesRoutes = require("./routes/student-routes/student-courses-ro
 const studentCourseProgressRoutes = require("./routes/student-routes/course-progress-routes");
 const createInstructorRoutes = require("./routes/admin-routes/CreateInstructorRoutes");
 const studentRoutes = require("./routes/student-routes/students-routes");
-
+const liveStreamRoute = require('./routes/liveStream');
 const app = express();
 const PORT = process.env.PORT || 5000;
 const MONGO_URI = process.env.MONGO_URI;
@@ -34,6 +34,7 @@ mongoose
   .catch((e) => console.log(e));
 
 //routes configuration
+app.use('/api/live', liveStreamRoute);
 app.use("/auth", authRoutes);
 app.use("/media", mediaRoutes);
 app.use("/instructor/course", instructorCourseRoutes);
