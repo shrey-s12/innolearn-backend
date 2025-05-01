@@ -23,7 +23,6 @@ exports.addNewlive = async (req, res) => {
 };
 
 exports.getAlllive = async (req, res) => {
-    console.log("helllo  motorola")
     try {
         const coursesList = await Live.find({});
 
