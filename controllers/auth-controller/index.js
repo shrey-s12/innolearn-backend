@@ -98,6 +98,7 @@ const loginUser = async (req, res) => {
           accessToken,
           user: {
             _id: checkUser._id,
+            userImage: checkUser.userProfilePicture,
             userName: checkUser.userName,
             userEmail: checkUser.userEmail,
             role: checkUser.role,
@@ -132,6 +133,7 @@ const loginUser = async (req, res) => {
           accessToken: instructorAccessToken,
           instructor: {
             _id: checkInstructor._id,
+            instructorImage: checkInstructor.instructorProfilePicture,
             instructorName: checkInstructor.instructorName,
             instructorEmail: checkInstructor.instructorEmail,
             role: checkInstructor.role,
