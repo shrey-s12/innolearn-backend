@@ -8,7 +8,7 @@ const UserSchema = new mongoose.Schema({
   confirmPassword: String,
   role: String,
   userPhoneNumber: String,
-  userProfilePicture: { type: String, default: "http://res.cloudinary.com/dy88vophl/image/upload/v1732280915/yvgqwj9hp7kgs87zkto8.png" },
+  userProfilePicture: { type: String, default: "https://res.cloudinary.com/dy88vophl/image/upload/v1732281036/b8gatghaiodpi0bjf9wd.png" },
   userAddress: {
     country: String,
     state: String,
